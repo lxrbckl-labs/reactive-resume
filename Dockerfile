@@ -60,4 +60,9 @@
     HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
         CMD curl -f http://localhost:3000/api/health || exit 1
     
+    # tsyringe (via @better-auth/passkey -> @simplewebauthn/server -> @peculiar/x509)
+    # needs the Reflect polyfill before any chunk evaluates it; load it at process
+    # start so bundle chunk order cannot break it (2026-11-08 incident).
+    ENV NODE_OPTIONS="--import=reflect-metadata"
+
     ENTRYPOINT ["node", ".output/server/index.mjs"]

@@ -135,7 +135,7 @@ const BUILDER_LAYOUT_COOKIE_NAME = "builder_layout";
 const layoutSchema = z.record(z.string(), z.number()).catch(defaultLayout);
 
 const setBuilderLayoutServerFn = createServerFn({ method: "POST" })
-	.inputValidator(layoutSchema)
+	.validator(layoutSchema)
 	.handler(async ({ data }) => {
 		setCookie(BUILDER_LAYOUT_COOKIE_NAME, JSON.stringify(data));
 	});

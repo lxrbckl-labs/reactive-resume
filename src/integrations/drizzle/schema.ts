@@ -119,6 +119,11 @@ export const twoFactor = pg.pgTable(
 			.references(() => user.id, { onDelete: "cascade" }),
 		secret: pg.text("secret"),
 		backupCodes: pg.text("backup_codes"),
+		// Added by better-auth 1.7's twoFactor plugin (verified defaults to true so
+		// enrolments that predate the column stay valid).
+		verified: pg.boolean("verified").notNull().default(true),
+		failedVerificationCount: pg.integer("failed_verification_count").notNull().default(0),
+		lockedUntil: pg.timestamp("locked_until", { withTimezone: true }),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })
