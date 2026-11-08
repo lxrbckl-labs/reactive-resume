@@ -1,6 +1,6 @@
 import { apiKeyClient } from "@better-auth/api-key/client";
 import { passkeyClient } from "@better-auth/passkey/client";
-import { genericOAuthClient, inferAdditionalFields, twoFactorClient, usernameClient } from "better-auth/client/plugins";
+import { inferAdditionalFields, twoFactorClient, usernameClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import type { auth } from "./config";
 
@@ -18,7 +18,6 @@ const getAuthClient = () => {
 				},
 			}),
 			passkeyClient(),
-			genericOAuthClient(),
 			inferAdditionalFields<typeof auth>(),
 		],
 	});

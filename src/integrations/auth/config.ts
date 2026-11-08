@@ -35,7 +35,7 @@ const getAuthConfig = () => {
 			tokenUrl: env.OAUTH_TOKEN_URL,
 			userInfoUrl: env.OAUTH_USER_INFO_URL,
 			scopes: env.OAUTH_SCOPES,
-			redirectURI: `${env.APP_URL}/api/auth/oauth2/callback/custom`,
+			redirectURI: `${env.APP_URL}/api/auth/callback/custom`,
 			mapProfileToUser: async (profile) => {
 				if (!profile.email) {
 					throw new BetterAuthError(
@@ -44,10 +44,12 @@ const getAuthConfig = () => {
 					);
 				}
 
+				const str = (value: unknown) => (typeof value === "string" ? value : undefined);
+
 				const email = profile.email;
-				const name = profile.name ?? profile.preferred_username ?? email.split("@")[0];
-				const username = profile.preferred_username ?? email.split("@")[0];
-				const image = profile.image ?? profile.picture ?? profile.avatar_url;
+				const name = str(profile.name) ?? str(profile.preferred_username) ?? email.split("@")[0];
+				const username = str(profile.preferred_username) ?? email.split("@")[0];
+				const image = str(profile.image) ?? str(profile.picture) ?? str(profile.avatar_url);
 
 				return {
 					name,
