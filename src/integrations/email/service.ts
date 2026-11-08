@@ -1,4 +1,4 @@
-import nodemailer, { type Transporter } from "nodemailer";
+import nodemailer, { type Mail } from "nodemailer";
 import { env } from "@/utils/env";
 
 type SendEmailOptions = {
@@ -11,6 +11,8 @@ type SendEmailOptions = {
 const isSmtpEnabled = () => {
 	return !!env.SMTP_HOST && !!env.SMTP_USER && !!env.SMTP_PASS && !!env.SMTP_FROM;
 };
+
+type Transporter = Mail;
 
 let cachedTransport: Transporter | undefined;
 
@@ -37,7 +39,7 @@ export const sendEmail = async (options: SendEmailOptions) => {
 	const transport = getTransport();
 
 	const from = options.from ?? env.SMTP_FROM ?? "Reactive Resume <noreply@localhost>";
-	const payload: nodemailer.SendMailOptions = {
+	const payload: Parameters<Transporter["sendMail"]>[0] = {
 		to: options.to,
 		from,
 		subject: options.subject,
