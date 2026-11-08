@@ -82,7 +82,7 @@ export function useAuthProviderActions() {
 		const providerName = getProviderName(provider);
 		const toastId = toast.loading(t`Unlinking your ${providerName} account...`);
 
-		const { error } = await authClient.unlinkAccount({ providerId: provider, accountId });
+		const { error } = await authClient.unlinkAccount({ accountId });
 
 		if (error) {
 			toast.error(error.message, { id: toastId });

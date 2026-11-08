@@ -47,8 +47,8 @@ export function SocialAuth() {
 	const handleOAuthLogin = async () => {
 		const toastId = toast.loading(t`Signing in...`);
 
-		const { error } = await authClient.signIn.oauth2({
-			providerId: "custom",
+		const { error } = await authClient.signIn.social({
+			provider: "custom",
 			callbackURL: "/dashboard",
 		});
 

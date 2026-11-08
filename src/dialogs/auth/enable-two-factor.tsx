@@ -60,6 +60,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
 		const { data, error } = await authClient.twoFactor.enable({
 			password: values.password,
+			method: "totp",
 			issuer: "Reactive Resume",
 		});
 
@@ -68,7 +69,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 			return;
 		}
 
-		if (data.totpURI && data.backupCodes) {
+		if (data.method === "totp") {
 			setTotpUri(data.totpURI);
 			setBackupCodes(data.backupCodes);
 			setStep("verify");

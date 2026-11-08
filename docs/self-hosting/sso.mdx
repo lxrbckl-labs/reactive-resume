@@ -69,13 +69,13 @@ You must configure endpoints using **one** of these two methods:
 When configuring your OAuth provider, you'll need to set the **callback URL** (also called redirect URI). Use the following format:
 
 ```
-{APP_URL}/api/auth/oauth2/callback/custom
+{APP_URL}/api/auth/callback/custom
 ```
 
 For example, if your `APP_URL` is `https://resume.example.com`, the callback URL would be:
 
 ```
-https://resume.example.com/api/auth/oauth2/callback/custom
+https://resume.example.com/api/auth/callback/custom
 ```
 
 <Warning>
@@ -108,7 +108,7 @@ Reactive Resume automatically maps user profile data from the OAuth provider. Th
     - **Name**: Reactive Resume
     - **Authorization flow**: Use your preferred authorization flow
     - **Client type**: Confidential
-    - **Redirect URIs**: `https://resume.example.com/api/auth/oauth2/callback/custom`
+    - **Redirect URIs**: `https://resume.example.com/api/auth/callback/custom`
   </Step>
 
   <Step title="Create an Application">
@@ -149,7 +149,7 @@ identity_providers:
         public: false
         authorization_policy: two_factor  # or one_factor
         redirect_uris:
-          - https://resume.example.com/api/auth/oauth2/callback/custom
+          - https://resume.example.com/api/auth/callback/custom
         scopes:
           - openid
           - profile
@@ -192,7 +192,7 @@ OAUTH_DISCOVERY_URL="https://auth.example.com/.well-known/openid-configuration"
   <Step title="Configure redirect URI">
     In the client settings, add the redirect URI:
 
-    - **Valid redirect URIs**: `https://resume.example.com/api/auth/oauth2/callback/custom`
+    - **Valid redirect URIs**: `https://resume.example.com/api/auth/callback/custom`
   </Step>
 
   <Step title="Copy credentials">
@@ -269,7 +269,7 @@ OAUTH_DISCOVERY_URL="https://auth.company.com/application/o/reactive-resume/.wel
   <Accordion title="Redirect URI mismatch error">
     The callback URL configured in your OAuth provider must exactly match:
     ```
-    {APP_URL}/api/auth/oauth2/callback/custom
+    {APP_URL}/api/auth/callback/custom
     ```
     Common issues:
     - Trailing slash mismatch
